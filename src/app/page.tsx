@@ -61,7 +61,8 @@ export default function Home() {
       ctx.fill();
       
       // Add circle name below
-      ctx.fillStyle = '#000';
+      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+      ctx.fillStyle = isDarkMode ? '#ffffff' : '#000000';
       ctx.font = '12px Arial';
       ctx.textAlign = 'center';
       ctx.fillText(circle.name, circle.x, circle.y + circle.radius + 20);
