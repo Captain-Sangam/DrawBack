@@ -1,0 +1,83 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  font-family: var(--font-righteous);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: var(--accent-color);
+  margin: 0;
+  font-family: var(--font-righteous);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.themeToggle:hover {
+  color: var(--accent-color);
+  background: none;
+}
+
+.githubLink {
+  display: flex;
+  align-items: center;
+  color: var(--foreground);
+  transition: color 0.2s ease;
+}
+
+.githubLink:hover {
+  color: var(--accent-color);
+}
+
+.githubLink svg {
+  fill: currentColor;
+}
+
+.main {
+  flex: 1;
+  padding-top: 5rem;
+  width: 100%;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--footer-bg);
+  color: var(--foreground);
+  font-size: 1.2rem;
+  font-family: var(--font-righteous);
+  margin-top: auto;
+}
