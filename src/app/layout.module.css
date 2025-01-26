@@ -9,8 +9,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: white;
-  border-bottom: 1px solid #eaeaea;
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -22,20 +22,43 @@
 .logo {
   font-size: 1.8rem;
   font-weight: normal;
-  color: #2a4d7c;
+  color: var(--accent-color);
   margin: 0;
   font-family: var(--font-righteous);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.themeToggle:hover {
+  color: var(--accent-color);
+  background: none;
 }
 
 .githubLink {
   display: flex;
   align-items: center;
-  color: #333;
+  color: var(--foreground);
   transition: color 0.2s ease;
 }
 
 .githubLink:hover {
-  color: #2a4d7c;
+  color: var(--accent-color);
 }
 
 .githubLink svg {
@@ -51,9 +74,9 @@
 .footer {
   text-align: center;
   padding: 1.5rem;
-  border-top: 1px solid #eaeaea;
-  background: white;
-  color: #666;
+  border-top: 1px solid var(--border-color);
+  background: var(--footer-bg);
+  color: var(--foreground);
   font-size: 1.2rem;
   font-family: var(--font-righteous);
   margin-top: auto;

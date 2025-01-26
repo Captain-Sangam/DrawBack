@@ -22,10 +22,16 @@ export default function Home() {
   const [nextStates, setNextStates] = useState<AppState[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [currentRadius, setCurrentRadius] = useState(20);
-  const [currentColor, setCurrentColor] = useState('#000000');
+  const MAX_CIRCLES = 4;
+  const COLORS = {
+    'Green': '#90EE90',
+    'Red': '#FFB6C1',
+    'Blue': '#ADD8E6',
+    'Yellow': '#FFE5B4'
+  };
 
-  const MAX_CIRCLES = 5;
+  const [currentRadius, setCurrentRadius] = useState(20);
+  const [currentColor, setCurrentColor] = useState(COLORS['Green']);
 
   useEffect(() => {
     drawCircles();
@@ -65,6 +71,11 @@ export default function Home() {
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    
+    // Check if we've reached the circle limit
+    if (currentState.stage.length >= MAX_CIRCLES) {
+      return;
+    }
     
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -149,41 +160,62 @@ ${nextStatesStr || ''}
   return (
     <main className={styles.main}>
       <div className={styles.drawingControls}>
-        <input
-          type="color"
-          value={currentColor}
-          onChange={(e) => setCurrentColor(e.target.value)}
-        />
-        <input
-          type="range"
-          min="5"
-          max="50"
-          value={currentRadius}
-          onChange={(e) => setCurrentRadius(Number(e.target.value))}
-        />
-        <button onClick={handleUndo} disabled={previousStates.length === 0}>
-          Undo
-        </button>
-        <button onClick={handleRedo} disabled={nextStates.length === 0}>
-          Redo
-        </button>
+        <label className={styles.controlLabel}>
+          Select color:
+          <select
+            value={currentColor}
+            onChange={(e) => setCurrentColor(e.target.value)}
+            className={styles.colorSelect}
+          >
+            {Object.entries(COLORS).map(([name, value]) => (
+              <option key={value} value={value}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={styles.controlLabel}>
+          Select size:
+          <input
+            type="range"
+            min="5"
+            max="50"
+            value={currentRadius}
+            onChange={(e) => setCurrentRadius(Number(e.target.value))}
+            className={styles.sizeSlider}
+          />
+        </label>
       </div>
       
       <div className={styles.contentContainer}>
-        <div className={styles.canvasContainer}>
-          <canvas
-            ref={canvasRef}
-            width={500}
-            height={500}
-            onClick={handleCanvasClick}
-            className={styles.canvas}
-          />
+        <div className={styles.leftContent}>
+          <div className={styles.canvasContainer}>
+            <canvas
+              ref={canvasRef}
+              width={500}
+              height={500}
+              onClick={handleCanvasClick}
+              className={styles.canvas}
+            />
+          </div>
+          <div className={styles.circleCounter}>
+            {currentState.stage.length}/{MAX_CIRCLES} circles drawn
+          </div>
         </div>
         
         <div 
           className={styles.jsonDisplay}
           dangerouslySetInnerHTML={{ __html: getStateJSON() }}
         />
+      </div>
+
+      <div className={styles.canvasActions}>
+        <button onClick={handleUndo} disabled={previousStates.length === 0}>
+          Undo
+        </button>
+        <button onClick={handleRedo} disabled={nextStates.length === 0}>
+          Redo
+        </button>
       </div>
     </main>
   );
